@@ -52,7 +52,8 @@ jobs:
       - name: run testing
         run: |
           source .venv/bin/activate
-          make test
+          make install
+          coverage run --source eurocropsmeta -m pytest -v
 
       - name: store artifacts
         uses: actions/upload-artifact@v4
