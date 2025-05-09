@@ -24,12 +24,12 @@ jobs:
           cache: pip
 
       - name: create venv
-        run: |
-          python3.10 -m venv .venv
-          source .venv/bin/activate
+        run: python3.10 -m venv .venv
 
       - name: run linting
-        run: make format lint
+        run: |
+          source .venv/bin/activate
+          make format lint
 
   test:
     name: testing
@@ -47,12 +47,12 @@ jobs:
           cache: pip
 
       - name: create venv
-        run: |
-          python3.10 -m venv .venv
-          source .venv/bin/activate
+        run: python3.10 -m venv .venv
 
       - name: run testing
-        run: make test
+        run: |
+          source .venv/bin/activate
+          make test
 
       - name: store artifacts
         uses: actions/upload-artifact@v4
@@ -79,11 +79,6 @@ jobs:
         with:
           python-version: "3.10"
           cache: pip
-
-      - name: create venv
-        run: |
-          python3.10 -m venv .venv
-          source .venv/bin/activate
 
       - name: load artifacts
         uses: actions/download-artifact@v4
