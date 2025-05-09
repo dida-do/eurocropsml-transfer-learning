@@ -1,0 +1,7 @@
+-c requirements-cpu.txt
+
+ruff
+mypy
+pytest
+pytest-cov
+pytest-mock

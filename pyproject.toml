@@ -1,0 +1,118 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs", "hatch-requirements-txt"]
+build-backend = "hatchling.build"
+
+[project]
+name = "eurocropsmeta"
+authors = [
+    { name = "Joana Reuss", email = "joana.reuss@tum.de" },
+    { name = "Jan Macdonald", email = "jan.macdonald@dida.do" },
+]
+maintainers = [
+    { name = "Joana Reuss", email = "joana.reuss@tum.de" },
+    { name = "Jan Macdonald", email = "jan.macdonald@dida.do" },
+]
+license = "MIT"
+description = "Transfer- and meta-learning few-shot crop type classification benchmark on the EuroCropsML dataset."
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
+dynamic = ["version", "readme", "dependencies", "optional-dependencies"]
+
+[project.urls]
+GitHub = "https://github.com/dida-do/eurocrops-meta-learning"
+
+[project.scripts]
+eurocropsmeta-cli = "eurocropsmeta.cli:cli"
+
+[tool.hatch.version]
+source = "vcs"
+raw-options = { local_scheme = "no-local-version" }
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements/requirements-gpu.txt"]
+# files = ["requirements/requirements-cpu.txt"]
+# files = ["requirements/requirements-osx.txt"]
+
+[tool.hatch.metadata.hooks.requirements_txt.optional-dependencies]
+tests = ["requirements/requirements-ci.txt"]
+dev = ["requirements/requirements-ci.txt", "requirements/requirements-dev.txt"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.format]
+exclude = ["*.ipynb"]
+docstring-code-format = true
+docstring-code-line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "D", "A", "N", "B", "SIM", "C4", "TID", "NPY201"]
+ignore = [
+    "E741", # Ambiguous variable name
+    "D213", # Multi-line docstring summary should start at the second line
+    "D105", # Missing docstring in magic method
+    "D107", # Missing docstring in __init__
+    "D202", # Blank lines after docstring
+    "D203", # 1 blank line required before class docstring
+    "D401", # First line should be in imperative mood; try rephrasing
+    "D406", # Section name should end with a newline
+    "D407", # Missing dashed underline after section
+    "D106", # Missing docstring in public nested class
+    "B006", # Do not use mutable data structures for argument defaults
+    "B008", # Do not perform function calls in argument defaults
+    "B905", # `zip()` without an explicit `strict=` parameter
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"test_*.py" = ["D", "E402"]
+"__init__.py" = ["D"]
+"notebooks/*.py" = [
+    "D",      # Make docstrings entirely optional
+    "E402",   # Module level import not at top of file
+    "SIM115", # Use context handler for opening files
+    "I",      # Allow unordered imports
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.isort]
+lines-between-types = 1
+lines-after-imports = 2
+known-first-party = ["eurocropsmeta"]
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+show_error_codes = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+xfail_strict = true
+testpaths = "tests"
+filterwarnings = ["once::Warning"]
+
+[tool.coverage.run]
+parallel = true
+branch = true
+source_pkgs = ["eurocropsmeta"]
+
+[tool.coverage.paths]
+source = ["eurocropsmeta"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
