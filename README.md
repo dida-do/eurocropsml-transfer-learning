@@ -11,7 +11,7 @@ Collected publications and code repositories from the *[PreTrainAppEO](https://w
   
 ## Methods
 
-:notebook: Reuss, J., Macdonald, J., Becker, S. et al. **Benchmarking for practice: Few-shot time-series crop-type classification on the EuroCropsML datase.** _ISPRS Open Journal of Photogrammetry and Remote Sensing 19 (2026)._ https://doi.org/10.1016/j.ophoto.2026.100117.
+:notebook: Reuss, J., Macdonald, J., Becker, S. et al. **Benchmarking for practice: Few-shot time-series crop-type classification on the EuroCropsML dataset.** _ISPRS Open Journal of Photogrammetry and Remote Sensing 19 (2026)._ https://doi.org/10.1016/j.ophoto.2026.100117.
 
 - 🔗 [eurocropsml-meta-learning](https://github.com/jsreu/EurocropsML-Meta-Learning)\
   _Meta-learning for crop type classification transfer learning._
